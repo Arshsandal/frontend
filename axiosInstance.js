@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-    baseURL:"http://localhost:5000/",
+    baseURL:"https://backend-5ofy.onrender.com/",
     timeout:1000,
 })
 instance.interceptors.request.use(
