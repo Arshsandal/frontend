@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../assets/Images/Logo_White.svg"
+import logo from "../assets/Images/Logo_white.svg"
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
