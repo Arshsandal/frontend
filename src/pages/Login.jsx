@@ -86,7 +86,7 @@ const responseGoogle = async (authResult) => {
       console.log("Success:", values);
       setLoading(true);
       try {
-        const response = await axiosInstance.post(`${baseURL}api/auth/login`, { email, password });
+        const response = await axiosInstance.post(`${baseURL}api/auth/login`, values);
         console.log("API Response:", response.data);
 
         if (response.data.success) {
