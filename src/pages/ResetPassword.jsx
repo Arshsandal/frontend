@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import logo from "../assets/Images/Logo_1.png";
 import { Button, Form, Input, notification } from "antd";
-import bgImage from "../assets/Images/1Copy.jpg";
+import bgImage from "../assets/Images/home.jpg";
 import axios from "axios";
 import Footer from "../components/Footer";
 import Lottie from "lottie-react";
