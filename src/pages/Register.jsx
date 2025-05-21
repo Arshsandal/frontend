@@ -27,7 +27,7 @@ const responseGoogle = async (authResult) => {
   try {
     if (authResult.code) {
       const res = await axios.post(
-        `http://localhost:5000/api/auth/google?code=${authResult.code}`
+        `https://backend-5ofy.onrender.com/api/auth/google?code=${authResult.code}`
       );
 
       const { token, user, username, isNewUser, message } = res.data;
@@ -84,7 +84,7 @@ const responseGoogle = async (authResult) => {
   const onFinish = async (values) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", values);
+      const response = await axios.post("https://backend-5ofy.onrender.com/api/auth/register", values);
 
       if (response.data.isNewUser) {
         openNotificationWithIcon(

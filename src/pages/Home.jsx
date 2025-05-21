@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/getBuses");
+        const response = await axios.get("https://backend-5ofy.onrender.com/api/auth/getBuses");
 
         // Extract unique station names from the backend response
         const data = response.data || [];
