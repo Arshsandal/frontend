@@ -2,7 +2,7 @@
   import { NavLink } from "react-router";
   import { useNavigate } from "react-router-dom";
   import Navbar from "../components/Navbar";
-  import logo from "../assets/Images/Logo_White.svg";
+  import logo from "../assets/Images/Logo_white.svg";
   import { Button, Checkbox, Form, Input, notification, Space } from "antd";
   import bgImage from "../assets/Images/Register.jpg";
   import axiosInstance from "../../axiosInstance";

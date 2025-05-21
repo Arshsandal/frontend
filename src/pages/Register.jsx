@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import logo from "../assets/Images/Logo_White.svg";
+import logo from "../assets/Images/Logo_white.svg";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { Button, Checkbox, Form, Input, DatePicker, notification } from "antd";
