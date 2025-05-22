@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import logo from "../assets/Images/Logo_1.png";
+import logo from "../assets/Images/Logo_white.svg";
 import { Button, Form, Input, notification } from "antd";
 import bgImage from "../assets/Images/home.jpg";
 import axios from "axios";
