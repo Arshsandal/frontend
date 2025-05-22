@@ -52,23 +52,20 @@
 //   return null;
 // };
 
-// // Helper: get destination coords from NaptanId or fallback to searching by name
+// // Helper to get destination coords
 // async function getDestinationCoords(destinationNaptanId, destinationName) {
 //   try {
 //     if (destinationNaptanId) {
-//       // Fetch from StopPoint API by NaptanId
 //       const stopRes = await axios.get(
 //         `https://api.tfl.gov.uk/StopPoint/${destinationNaptanId}`
 //       );
 //       return [stopRes.data.lat, stopRes.data.lon];
 //     } else if (destinationName) {
-//       // Search stops by name
 //       const searchRes = await axios.get(
 //         `https://api.tfl.gov.uk/StopPoint/Search/${encodeURIComponent(destinationName)}`
 //       );
 //       const matches = searchRes.data.matches;
 //       if (matches.length > 0) {
-//         // Take first match's details
 //         const stopDetailsRes = await axios.get(
 //           `https://api.tfl.gov.uk/StopPoint/${matches[0].id}`
 //         );
@@ -109,7 +106,6 @@
 //       setMapError(null);
 
 //       try {
-//         // Get origin coordinates from local API/localStorage
 //         const naptanId = localStorage.getItem("Naptan Id");
 //         if (!naptanId) {
 //           setMapError("Naptan ID not found in localStorage.");
@@ -123,13 +119,10 @@
 //         const origin = [originRes.data.lat, originRes.data.lon];
 //         setOriginCoords(origin);
 
-//         // Get arrivals for your bus lines
 //         const arrivalsRes = await axios.get(
 //           `https://api.tfl.gov.uk/Line/24,73,159/Arrivals?sort=timeToStation`
 //         );
 
-//         // Find the arrival for your selected vehicleId or line, or fallback to first arrival
-//         // Here, matching vehicleId from state or just first arrival for demo
 //         let arrival = null;
 //         if (state.vehicleId) {
 //           arrival = arrivalsRes.data.find((a) => a.vehicleId === state.vehicleId);
@@ -143,7 +136,6 @@
 //           return;
 //         }
 
-//         // Get destination coords by NaptanId or destinationName fallback
 //         const destinationCoords = await getDestinationCoords(
 //           arrival.destinationNaptanId,
 //           arrival.destinationName
@@ -187,76 +179,78 @@
 //   return (
 //     <>
 //       <Navbar />
-//       <div className="min-h-screen p-10 bg-gradient-to-tr from-indigo-50 via-white to-indigo-100 flex flex-col items-center">
+//       <div className="min-h-screen bg-gradient-to-tr from-indigo-50 via-white to-indigo-100 flex flex-col">
 //         <ToastContainer />
 //         <button
 //           onClick={() => navigate(-1)}
-//           className="mb-6 text-indigo-700 hover:text-indigo-900 font-semibold transition"
+//           className="m-4 text-indigo-700 hover:text-indigo-900 font-semibold transition self-start"
 //         >
 //           ← Back to Tracker
 //         </button>
 
-//         <div className="max-w-3xl w-full bg-white rounded-3xl shadow-2xl p-10 border border-indigo-200">
-//           <h1 className="text-5xl font-extrabold mb-8 text-indigo-900">
-//             Line {state.lineName} Details
-//           </h1>
+//         <div className="flex flex-1">
+//           {/* Left: Trip Details */}
+//           <div className="w-1/4 p-6 bg-white border-r border-indigo-200 shadow-md overflow-y-auto">
+//             <h1 className="text-3xl font-bold mb-6 text-indigo-900">
+//               Line {state.lineName} Details
+//             </h1>
+//             <DetailRow label="Current Station" value={state.stationName} />
+//             <DetailRow label="Destination" value={state.destination} />
+//             <DetailRow label="Platform" value={state.platformName || "N/A"} />
+//             <DetailRow
+//               label="Arrival Time"
+//               value={
+//                 state.expectedArrival
+//                   ? new Date(state.expectedArrival).toLocaleTimeString([], {
+//                       hour: "2-digit",
+//                       minute: "2-digit",
+//                     })
+//                   : "N/A"
+//               }
+//             />
+//             <DetailRow
+//               label="Time to Station"
+//               value={
+//                 typeof state.timeToStation === "number"
+//                   ? `${(state.timeToStation / 60).toFixed(1)} minutes`
+//                   : "N/A"
+//               }
+//             />
+//             <DetailRow label="Vehicle ID" value={state.vehicleId || "N/A"} />
+//             <DetailRow label="Naptan ID" value={state.naptanId || "N/A"} />
+//           </div>
 
-//           <DetailRow label="Current Station" value={state.stationName} />
-//           <DetailRow label="Destination" value={state.destination} />
-//           <DetailRow label="Platform" value={state.platformName || "N/A"} />
-//           <DetailRow
-//             label="Arrival Time"
-//             value={
-//               state.expectedArrival
-//                 ? new Date(state.expectedArrival).toLocaleTimeString([], {
-//                     hour: "2-digit",
-//                     minute: "2-digit",
-//                   })
-//                 : "N/A"
-//             }
-//           />
-//           <DetailRow
-//             label="Time to Station"
-//             value={
-//               typeof state.timeToStation === "number"
-//                 ? `${(state.timeToStation / 60).toFixed(1)} minutes`
-//                 : "N/A"
-//             }
-//           />
-//           <DetailRow label="Vehicle ID" value={state.vehicleId || "N/A"} />
-//           <DetailRow label="Naptan ID" value={state.naptanId || "N/A"} />
-//         </div>
-
-//         {/* MAP */}
-//         <div className="max-w-3xl w-full h-96 mt-10 rounded-3xl overflow-hidden shadow-lg border border-indigo-300">
-//           {loadingMap ? (
-//             <div className="flex items-center justify-center h-full">
-//               <p className="text-gray-600 animate-pulse">Loading map...</p>
-//             </div>
-//           ) : mapError ? (
-//             <div className="flex items-center justify-center h-full">
-//               <p className="text-red-600">{mapError}</p>
-//             </div>
-//           ) : originCoords && destCoords ? (
-//             <MapContainer
-//               center={originCoords}
-//               zoom={13}
-//               scrollWheelZoom={false}
-//               style={{ height: "100%", width: "100%" }}
-//             >
-//               <TileLayer
-//                 attribution='&copy; OpenStreetMap contributors'
-//                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-//               />
-//               <Marker position={originCoords}>
-//                 <Popup>Current Location</Popup>
-//               </Marker>
-//               <Marker position={destCoords}>
-//                 <Popup>Destination</Popup>
-//               </Marker>
-//               <RoutingMachine waypoints={[originCoords, destCoords]} />
-//             </MapContainer>
-//           ) : null}
+//           {/* Right: Map */}
+//           <div className="w-3/4 h-[calc(100vh-100px)]">
+//             {loadingMap ? (
+//               <div className="flex items-center justify-center h-full">
+//                 <p className="text-gray-600 animate-pulse">Loading map...</p>
+//               </div>
+//             ) : mapError ? (
+//               <div className="flex items-center justify-center h-full">
+//                 <p className="text-red-600">{mapError}</p>
+//               </div>
+//             ) : originCoords && destCoords ? (
+//               <MapContainer
+//                 center={originCoords}
+//                 zoom={13}
+//                 scrollWheelZoom={false}
+//                 style={{ height: "100%", width: "100%" }}
+//               >
+//                 <TileLayer
+//                   attribution='&copy; OpenStreetMap contributors'
+//                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//                 />
+//                 <Marker position={originCoords}>
+//                   <Popup>Current Location</Popup>
+//                 </Marker>
+//                 <Marker position={destCoords}>
+//                   <Popup>Destination</Popup>
+//                 </Marker>
+//                 <RoutingMachine waypoints={[originCoords, destCoords]} />
+//               </MapContainer>
+//             ) : null}
+//           </div>
 //         </div>
 //       </div>
 //       <Footer />
@@ -265,7 +259,7 @@
 // };
 
 // const DetailRow = ({ label, value }) => (
-//   <p className="text-xl mb-4 font-medium text-indigo-800">
+//   <p className="text-lg mb-3 font-medium text-indigo-800">
 //     <span className="font-semibold">{label}:</span> {value}
 //   </p>
 // );
@@ -460,15 +454,15 @@ const TripDetail = () => {
         <ToastContainer />
         <button
           onClick={() => navigate(-1)}
-          className="m-4 text-indigo-700 hover:text-indigo-900 font-semibold transition self-start"
+          className="mx-4 my-2 sm:my-4 text-indigo-700 hover:text-indigo-900 font-semibold transition self-start"
         >
           ← Back to Tracker
         </button>
 
-        <div className="flex flex-1">
+        <div className="flex flex-col lg:flex-row flex-1">
           {/* Left: Trip Details */}
-          <div className="w-1/4 p-6 bg-white border-r border-indigo-200 shadow-md overflow-y-auto">
-            <h1 className="text-3xl font-bold mb-6 text-indigo-900">
+          <div className="w-full lg:w-1/4 p-4 sm:p-6 bg-white border-b lg:border-b-0 lg:border-r border-indigo-200 shadow-md overflow-y-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-indigo-900">
               Line {state.lineName} Details
             </h1>
             <DetailRow label="Current Station" value={state.stationName} />
@@ -498,7 +492,7 @@ const TripDetail = () => {
           </div>
 
           {/* Right: Map */}
-          <div className="w-3/4 h-[calc(100vh-100px)]">
+          <div className="w-full lg:w-3/4 h-[400px] sm:h-[calc(100vh-100px)]">
             {loadingMap ? (
               <div className="flex items-center justify-center h-full">
                 <p className="text-gray-600 animate-pulse">Loading map...</p>
@@ -536,7 +530,7 @@ const TripDetail = () => {
 };
 
 const DetailRow = ({ label, value }) => (
-  <p className="text-lg mb-3 font-medium text-indigo-800">
+  <p className="text-base sm:text-lg mb-2 sm:mb-3 font-medium text-indigo-800">
     <span className="font-semibold">{label}:</span> {value}
   </p>
 );
