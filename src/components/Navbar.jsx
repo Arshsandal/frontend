@@ -149,8 +149,8 @@ import logo from "../assets/Images/Logo_white.svg";
 
 const Navbar = () => {
   const [username, setUsername] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -166,134 +166,107 @@ const Navbar = () => {
     navigate("/home", { replace: true });
   };
 
-  const toggleDropdown = (name) => {
-    setOpenDropdown((prev) => (prev === name ? null : name));
+  const toggleDropdown = (index) => {
+    setDropdownOpen(dropdownOpen === index ? null : index);
   };
 
   return (
     <div className="header">
       <div className="main">
-        <nav className="navbar shadow-lg">
-          <div className="flex items-center justify-between px-4 py-3 sm:px-6">
-            {/* Logo */}
-            <div className="logo flex items-center space-x-3">
-              <NavLink to="/home" end className="flex items-center">
-                <img src={logo} alt="Logo" className="h-8" />
-              </NavLink>
-              <div className="ctu-nav hidden sm:block">
+        <nav className="navbar shadow-lg bg-black text-white relative">
+          {/* Logo and Mobile Toggle */}
+          <div className="flex justify-between items-center w-full px-4 py-2">
+            <NavLink to="/home" className="flex items-center">
+              <img src={logo} alt="Logo" className="h-8" />
+              <div className="ml-2 hidden sm:block ctu-nav">
                 <span className="bold">Transport for London (TfL).</span>
                 <span className="s-bold"> London, United Kingdom.</span>
               </div>
-            </div>
+            </NavLink>
 
-            {/* Hamburger menu */}
-            <div className="sm:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-white text-2xl focus:outline-none"
-              >
-                <i className="fas fa-bars"></i>
-              </button>
-            </div>
+            {/* Mobile Hamburger */}
+            <button
+              className="sm:hidden text-white"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <i className="fa fa-bars text-xl"></i>
+            </button>
           </div>
 
-          {/* Menu Items */}
+          {/* Menu */}
           <ul
-            className={`navbar-ul flex flex-col sm:flex-row sm:items-center sm:justify-end px-4 sm:px-0 transition-all duration-300 ease-in-out ${
-              isMobileMenuOpen ? "block" : "hidden sm:flex"
-            }`}
+            className={`navbar-ul flex-col sm:flex-row sm:flex ${
+              mobileMenuOpen ? "flex" : "hidden"
+            } sm:items-center sm:justify-end text-white px-4 sm:px-0`}
           >
-            {/* Plan Your Journey Dropdown */}
-            <li className="dropdown text-white w-full sm:w-auto">
+            {/* Dropdown 1 */}
+            <li className="dropdown relative">
               <button
-                className="dropbtn text-white w-full sm:w-auto text-left sm:text-center"
-                onClick={() => toggleDropdown("journey")}
+                className="dropbtn text-white flex items-center justify-between w-full sm:w-auto"
+                onClick={() => toggleDropdown(1)}
               >
-                Plan Your Journey{" "}
-                <i className="fa-solid fa-chevron-down ml-1"></i>
+                Plan Your Journey <i className="fa-solid fa-chevron-down ml-1"></i>
               </button>
               <div
-                className={`dropdown-content ${
-                  openDropdown === "journey" ? "block" : "hidden"
-                } sm:block`}
+                className={`dropdown-content bg-black text-white absolute sm:static ${
+                  dropdownOpen === 1 ? "block" : "hidden"
+                }`}
               >
-                <NavLink to="/routeMap" className="text-white">
-                  Route Map
-                </NavLink>
+                <NavLink to="/routeMap">Route Map</NavLink>
                 <hr />
-                <NavLink to="/schedulesAndStops" className="text-white">
-                  Schedules & Stops
-                </NavLink>
+                <NavLink to="/schedulesAndStops">Schedules & Stops</NavLink>
                 <hr />
-                <NavLink to="/discoverLondon" className="text-white">
-                  Discover London
-                </NavLink>
+                <NavLink to="/discoverLondon">Discover London</NavLink>
               </div>
             </li>
 
-            {/* Services Dropdown */}
-            <li className="dropdown text-white w-full sm:w-auto">
+            {/* Dropdown 2 */}
+            <li className="dropdown relative">
               <button
-                className="dropbtn text-white w-full sm:w-auto text-left sm:text-center"
-                onClick={() => toggleDropdown("services")}
+                className="dropbtn text-white flex items-center justify-between w-full sm:w-auto"
+                onClick={() => toggleDropdown(2)}
               >
                 Services <i className="fa-solid fa-chevron-down ml-1"></i>
               </button>
               <div
-                className={`dropdown-content ${
-                  openDropdown === "services" ? "block" : "hidden"
-                } sm:block`}
+                className={`dropdown-content bg-black text-white absolute sm:static ${
+                  dropdownOpen === 2 ? "block" : "hidden"
+                }`}
               >
-                <NavLink to="/allServices" className="text-white">
-                  All Services
-                </NavLink>
+                <NavLink to="/allServices">All Services</NavLink>
                 <hr />
-                <NavLink to="/fixLounge" className="text-white">
-                  Fix Lounge
-                </NavLink>
+                <NavLink to="/fixLounge">Fix Lounge</NavLink>
                 <hr />
-                <NavLink to="/onBoard" className="text-white">
-                  On Board
-                </NavLink>
+                <NavLink to="/onBoard">On Board</NavLink>
                 <hr />
-                <NavLink to="/safety" className="text-white">
-                  Safety
-                </NavLink>
+                <NavLink to="/safety">Safety</NavLink>
                 <hr />
-                <NavLink to="/customerSatisfaction" className="text-white">
-                  Customer Satisfaction
-                </NavLink>
+                <NavLink to="/customerSatisfaction">Customer Satisfaction</NavLink>
               </div>
             </li>
 
-            {/* Regular Links */}
-            <li className="text-white w-full sm:w-auto">
-              <NavLink to="/tripTracker" className="text-white block py-2 sm:py-0">
-                Trip Tracker
-              </NavLink>
+            {/* Other Links */}
+            <li>
+              <NavLink to="/tripTracker">Trip Tracker</NavLink>
             </li>
-            <li className="text-white w-full sm:w-auto">
-              <NavLink to="/help" className="text-white block py-2 sm:py-0">
-                Help
-              </NavLink>
+            <li>
+              <NavLink to="/help">Help</NavLink>
             </li>
 
-            {/* User Info */}
+            {/* Login/Welcome */}
             {username ? (
-              <li className="relative text-white w-full sm:w-auto">
-                <div className="py-2">
-                  <div className="text-white">Welcome,</div>
-                  <div className="text-white font-semibold">{username}</div>
-                </div>
-                <div className="w-full sm:absolute sm:right-0 sm:w-40 bg-white border border-gray-300 shadow-lg rounded-lg z-50 text-sm hidden sm:group-hover:block">
+              <li className="relative group">
+                <div className="text-white">Welcome,</div>
+                <div className="group-hover:underline">{username}</div>
+                <div className="absolute right-0 mt-2 w-40 bg-white text-black border border-gray-300 shadow-lg rounded z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200 text-sm">
                   <NavLink to="/profile">
-                    <button className="w-full text-left px-4 py-2 bg-[#f9f9f9] text-black hover:bg-[#808080] hover:text-white transition-colors duration-200 rounded-t-[5px]">
+                    <button className="w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white">
                       Profile
                     </button>
                   </NavLink>
-                  <hr className="border-gray-300" />
+                  <hr />
                   <button
-                    className="w-full text-left px-4 py-2 bg-[#f9f9f9] text-black hover:bg-[#808080] hover:text-white transition-colors duration-200 rounded-b-[5px]"
+                    className="w-full text-left px-4 py-2 hover:bg-gray-600 hover:text-white"
                     onClick={handleLogout}
                   >
                     Logout
@@ -301,10 +274,8 @@ const Navbar = () => {
                 </div>
               </li>
             ) : (
-              <li className="text-white w-full sm:w-auto">
-                <NavLink to="/login" className="text-white block py-2 sm:py-0">
-                  Login
-                </NavLink>
+              <li>
+                <NavLink to="/login">Login</NavLink>
               </li>
             )}
           </ul>

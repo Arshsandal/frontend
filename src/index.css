@@ -341,3 +341,38 @@ label {
 .dropdown-content button {
   @apply block w-full px-4 py-2 text-gray-800 hover:bg-[#808080] hover:text-white transition-colors duration-200;
 }
+
+
+
+.navbar-ul li {
+  margin: 0.5rem 0;
+}
+
+.dropdown-content {
+  display: none;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 999;
+  padding: 0.5rem;
+  background-color: black;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .navbar-ul {
+    display: flex !important;
+    gap: 1rem;
+  }
+
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+  }
+}
+  
