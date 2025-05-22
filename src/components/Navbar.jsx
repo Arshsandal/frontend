@@ -143,8 +143,6 @@
 // export default Navbar;
 
 
-
-
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/Images/Logo_white.svg";
@@ -152,6 +150,7 @@ import logo from "../assets/Images/Logo_white.svg";
 const Navbar = () => {
   const [username, setUsername] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -167,122 +166,149 @@ const Navbar = () => {
     navigate("/home", { replace: true });
   };
 
+  const toggleDropdown = (name) => {
+    setOpenDropdown((prev) => (prev === name ? null : name));
+  };
+
   return (
-    <div className="bg-indigo-900 text-white shadow-lg">
-      <div className="flex items-center justify-between px-4 py-3 sm:px-6">
-        {/* Logo and label */}
-        <div className="flex items-center space-x-3">
-          <NavLink to="/home" className="flex items-center space-x-2">
-            <img src={logo} alt="Logo" className="h-8" />
-            <div className="hidden sm:block">
-              <span className="font-bold">Transport for London (TfL)</span>
-              <br />
-              <span className="text-sm">London, United Kingdom</span>
+    <div className="header">
+      <div className="main">
+        <nav className="navbar shadow-lg">
+          <div className="flex items-center justify-between px-4 py-3 sm:px-6">
+            {/* Logo */}
+            <div className="logo flex items-center space-x-3">
+              <NavLink to="/home" end className="flex items-center">
+                <img src={logo} alt="Logo" className="h-8" />
+              </NavLink>
+              <div className="ctu-nav hidden sm:block">
+                <span className="bold">Transport for London (TfL).</span>
+                <span className="s-bold"> London, United Kingdom.</span>
+              </div>
             </div>
-          </NavLink>
-        </div>
 
-        {/* Mobile menu toggle */}
-        <div className="sm:hidden">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-white focus:outline-none"
+            {/* Hamburger menu */}
+            <div className="sm:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white text-2xl focus:outline-none"
+              >
+                <i className="fas fa-bars"></i>
+              </button>
+            </div>
+          </div>
+
+          {/* Menu Items */}
+          <ul
+            className={`navbar-ul flex flex-col sm:flex-row sm:items-center sm:justify-end px-4 sm:px-0 transition-all duration-300 ease-in-out ${
+              isMobileMenuOpen ? "block" : "hidden sm:flex"
+            }`}
           >
-            <i className="fas fa-bars text-xl"></i>
-          </button>
-        </div>
-      </div>
-
-      {/* Full Menu */}
-      <div
-        className={`sm:flex sm:items-center sm:justify-between sm:px-6 ${
-          isMobileMenuOpen ? "block" : "hidden"
-        }`}
-      >
-        <ul className="sm:flex sm:space-x-6 flex flex-col sm:flex-row bg-indigo-900 sm:bg-transparent px-4 sm:px-0 pb-4 sm:pb-0">
-          {/* Plan Your Journey */}
-          <li className="relative group">
-            <button className="py-2 w-full text-left text-white font-medium flex justify-between items-center sm:inline">
-              Plan Your Journey
-              <i className="fas fa-chevron-down sm:ml-1"></i>
-            </button>
-            <div className="sm:absolute sm:bg-white sm:text-black sm:rounded sm:shadow-lg sm:mt-2 hidden sm:group-hover:block">
-              <NavLink to="/routeMap" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Route Map
-              </NavLink>
-              <NavLink to="/schedulesAndStops" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Schedules & Stops
-              </NavLink>
-              <NavLink to="/discoverLondon" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Discover London
-              </NavLink>
-            </div>
-          </li>
-
-          {/* Services */}
-          <li className="relative group">
-            <button className="py-2 w-full text-left text-white font-medium flex justify-between items-center sm:inline">
-              Services
-              <i className="fas fa-chevron-down sm:ml-1"></i>
-            </button>
-            <div className="sm:absolute sm:bg-white sm:text-black sm:rounded sm:shadow-lg sm:mt-2 hidden sm:group-hover:block">
-              <NavLink to="/allServices" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                All Services
-              </NavLink>
-              <NavLink to="/fixLounge" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Fix Lounge
-              </NavLink>
-              <NavLink to="/onBoard" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                On Board
-              </NavLink>
-              <NavLink to="/safety" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Safety
-              </NavLink>
-              <NavLink to="/customerSatisfaction" className="block px-4 py-2 hover:bg-indigo-700 sm:hover:text-white text-white sm:text-black">
-                Customer Satisfaction
-              </NavLink>
-            </div>
-          </li>
-
-          {/* Simple NavLinks */}
-          <li>
-            <NavLink to="/tripTracker" className="block py-2 hover:text-indigo-300 text-white font-medium">
-              Trip Tracker
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/help" className="block py-2 hover:text-indigo-300 text-white font-medium">
-              Help
-            </NavLink>
-          </li>
-
-          {/* Login / User Info */}
-          {username ? (
-            <li className="relative group">
-              <div className="py-2 font-medium text-white">
-                Welcome,{" "}
-                <span className="underline decoration-white">{username}</span>
-              </div>
-              <div className="sm:absolute sm:bg-white sm:text-black sm:rounded sm:shadow-lg sm:mt-2 hidden sm:group-hover:block">
-                <NavLink to="/profile" className="block px-4 py-2 text-white hover:bg-indigo-700 sm:text-black sm:hover:text-white">
-                  Profile
+            {/* Plan Your Journey Dropdown */}
+            <li className="dropdown text-white w-full sm:w-auto">
+              <button
+                className="dropbtn text-white w-full sm:w-auto text-left sm:text-center"
+                onClick={() => toggleDropdown("journey")}
+              >
+                Plan Your Journey{" "}
+                <i className="fa-solid fa-chevron-down ml-1"></i>
+              </button>
+              <div
+                className={`dropdown-content ${
+                  openDropdown === "journey" ? "block" : "hidden"
+                } sm:block`}
+              >
+                <NavLink to="/routeMap" className="text-white">
+                  Route Map
                 </NavLink>
-                <button
-                  onClick={handleLogout}
-                  className="block w-full text-left px-4 py-2 text-white hover:bg-indigo-700 sm:text-black sm:hover:text-white"
-                >
-                  Logout
-                </button>
+                <hr />
+                <NavLink to="/schedulesAndStops" className="text-white">
+                  Schedules & Stops
+                </NavLink>
+                <hr />
+                <NavLink to="/discoverLondon" className="text-white">
+                  Discover London
+                </NavLink>
               </div>
             </li>
-          ) : (
-            <li>
-              <NavLink to="/login" className="block py-2 hover:text-indigo-300 text-white font-medium">
-                Login
+
+            {/* Services Dropdown */}
+            <li className="dropdown text-white w-full sm:w-auto">
+              <button
+                className="dropbtn text-white w-full sm:w-auto text-left sm:text-center"
+                onClick={() => toggleDropdown("services")}
+              >
+                Services <i className="fa-solid fa-chevron-down ml-1"></i>
+              </button>
+              <div
+                className={`dropdown-content ${
+                  openDropdown === "services" ? "block" : "hidden"
+                } sm:block`}
+              >
+                <NavLink to="/allServices" className="text-white">
+                  All Services
+                </NavLink>
+                <hr />
+                <NavLink to="/fixLounge" className="text-white">
+                  Fix Lounge
+                </NavLink>
+                <hr />
+                <NavLink to="/onBoard" className="text-white">
+                  On Board
+                </NavLink>
+                <hr />
+                <NavLink to="/safety" className="text-white">
+                  Safety
+                </NavLink>
+                <hr />
+                <NavLink to="/customerSatisfaction" className="text-white">
+                  Customer Satisfaction
+                </NavLink>
+              </div>
+            </li>
+
+            {/* Regular Links */}
+            <li className="text-white w-full sm:w-auto">
+              <NavLink to="/tripTracker" className="text-white block py-2 sm:py-0">
+                Trip Tracker
               </NavLink>
             </li>
-          )}
-        </ul>
+            <li className="text-white w-full sm:w-auto">
+              <NavLink to="/help" className="text-white block py-2 sm:py-0">
+                Help
+              </NavLink>
+            </li>
+
+            {/* User Info */}
+            {username ? (
+              <li className="relative text-white w-full sm:w-auto">
+                <div className="py-2">
+                  <div className="text-white">Welcome,</div>
+                  <div className="text-white font-semibold">{username}</div>
+                </div>
+                <div className="w-full sm:absolute sm:right-0 sm:w-40 bg-white border border-gray-300 shadow-lg rounded-lg z-50 text-sm hidden sm:group-hover:block">
+                  <NavLink to="/profile">
+                    <button className="w-full text-left px-4 py-2 bg-[#f9f9f9] text-black hover:bg-[#808080] hover:text-white transition-colors duration-200 rounded-t-[5px]">
+                      Profile
+                    </button>
+                  </NavLink>
+                  <hr className="border-gray-300" />
+                  <button
+                    className="w-full text-left px-4 py-2 bg-[#f9f9f9] text-black hover:bg-[#808080] hover:text-white transition-colors duration-200 rounded-b-[5px]"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              </li>
+            ) : (
+              <li className="text-white w-full sm:w-auto">
+                <NavLink to="/login" className="text-white block py-2 sm:py-0">
+                  Login
+                </NavLink>
+              </li>
+            )}
+          </ul>
+        </nav>
       </div>
     </div>
   );
