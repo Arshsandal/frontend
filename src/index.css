@@ -133,6 +133,7 @@ legend {
   .search-buses {
     @apply hidden;
   }
+
   .navbar-ul li {
     @apply font-normal text-[13px];
   }
