@@ -246,7 +246,7 @@ legend {
 }
 
 /* Dropdown button */
-.dropdown .dropbtn {
+.dropdown .dropbtn .navbar-ul li{
   @apply text-base text-black bg-inherit m-0 border-[none] text-[#fff];
   outline: none;
   font-family: inherit;
