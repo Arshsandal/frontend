@@ -128,16 +128,10 @@ legend {
   .hero p {
     @apply text-[0.9rem];
   }
-  .hero {
-    @apply w-screen h-screen bg-[url('Images/1Copy.jpg')] bg-cover bg-center bg-no-repeat relative flex justify-center items-center text-center;
-  }
 }
 @media (max-width: 662px) {
   .search-buses {
     @apply hidden;
-  }
-  .hero {
-    @apply w-screen h-screen bg-[url('Images/1Copy.jpg')] bg-cover bg-center bg-no-repeat relative flex justify-center items-center text-center;
   }
   .navbar-ul li {
     @apply font-normal text-[13px];
@@ -205,10 +199,6 @@ legend {
 .navbar-ul li span {
   @apply ml-2;
 }
-.register-main {
-  @apply w-full h-[110vh] bg-center bg-cover bg-fixed flex justify-end;
-  background-image: url('./assets/Images/1Copy.jpg'); /* Use relative path */
-}
 .form-box {
   @apply h-[80vh] shadow-[0_4px_10px_rgba(0,0,0,0.1)] ml-0 mr-5 my-5 p-5 rounded-lg border-2 border-solid border-white w-[450px] h-[610px] shadow-[0_4px_10px_rgba(0,0,0,0.1)] mr-5 mt-5 p-5 rounded-lg text-white border-2 border-solid border-white;
   background: white;
@@ -246,10 +236,6 @@ legend {
 }
 .signup-link a {
   @apply text-[#00a650] no-underline;
-}
-.login-main {
-  @apply w-full h-[110vh] bg-center bg-cover bg-fixed flex justify-end;
-  background-image: url('./assets/Images/1Copy.jpg'); /* Use relative path */
 }
 .user {
   @apply h-[30px] w-[30px] relative rounded-[50%] bottom-0.5;
