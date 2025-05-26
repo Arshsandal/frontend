@@ -250,10 +250,7 @@ legend {
   @apply text-base text-black bg-inherit m-0 border-[none] text-[#fff];
   outline: none;
   font-family: inherit;
-
-  /* Important for vertical align on mobile phones */
-
-  /* Important for vertical align on mobile phones */
+  font-size: 13px !important;
 }
 
 /* Dropdown content (hidden by default) */
