@@ -31,7 +31,7 @@ const ResetPassword = () => {
     }
   
     try {
-      const response = await axios.post("https://backend-nine-plum-98.vercel.app/api/auth/resetPassword", {
+      const response = await axios.post("https://backend-5ofy.onrender.com/api/auth/resetPassword", {
         email: email,
         newPassword: values.newPassword,
         confirmNewPassword: values.confirmNewPassword,

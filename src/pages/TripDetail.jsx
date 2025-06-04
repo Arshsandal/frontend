@@ -114,7 +114,7 @@ const TripDetail = () => {
         }
 
         const originRes = await axios.get(
-          `https://backend-nine-plum-98.vercel.app/api/auth/getLatLon/${naptanId}`
+          `https://backend-5ofy.onrender.com/api/auth/getLatLon/${naptanId}`
         );
         const origin = [originRes.data.lat, originRes.data.lon];
         setOriginCoords(origin);

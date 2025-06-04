@@ -15,7 +15,7 @@ const TripTracker = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://backend-nine-plum-98.vercel.app/api/auth/getBuses");
+        const response = await axios.get("https://backend-5ofy.onrender.com/api/auth/getBuses");
         setRoutes(response.data);
         setLoading(false);
       } catch (err) {

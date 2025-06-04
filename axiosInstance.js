@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-    baseURL:"https://backend-nine-plum-98.vercel.app/",
+    baseURL:"https://backend-5ofy.onrender.com/",
     timeout:5000,
 })
 instance.interceptors.request.use(
