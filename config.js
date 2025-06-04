@@ -1,2 +1,2 @@
-const baseURL = "https://backend-5ofy.onrender.com/"
+const baseURL = "https://backend-nine-plum-98.vercel.app/"
 export default baseURL

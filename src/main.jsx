@@ -26,6 +26,7 @@ import SchedulesAndStops from "./pages/SchedulesAndStops";
 import ResetPassword from "./pages/ResetPassword";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import TripDetail from "./pages/TripDetail";
+import Settings from "./pages/Settings";
 
 const root = document.getElementById("root");
 
@@ -57,6 +58,7 @@ ReactDOM.createRoot(root).render(
       <Route path="/schedulesAndStops" element={<SchedulesAndStops />} />
       <Route path="/resetPAssword" element={<ResetPassword />} />
        <Route path="/trip/:id" element={<TripDetail />} />
+       <Route path="/settings" element={<Settings />} />
     </Routes>
   </BrowserRouter>
   </GoogleOAuthProvider>
