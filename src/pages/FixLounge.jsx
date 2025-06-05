@@ -22,7 +22,6 @@ import {
 } from '@ant-design/icons';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Svg from '../components/Svg';
 import Copyright from '../components/Copyright';
 
 const { Content } = Layout;
@@ -68,9 +67,9 @@ const FixLounge = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <>
       <Navbar />
-
+    <Layout style={{ minHeight: '100vh' }}>
       <Content
         style={{
           padding: '60px 8%',
@@ -210,8 +209,10 @@ const FixLounge = () => {
         </div>
       </Content>
 
-      <Footer />
+      
     </Layout>
+    <Footer />
+    </>
   );
 };
 
