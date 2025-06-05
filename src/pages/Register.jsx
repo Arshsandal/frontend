@@ -147,7 +147,7 @@ const responseGoogle = async (authResult) => {
               },
             ]}
           >
-            <Input className="form-input" />
+            <Input className="form-input !w-[249px] !float-right" />
           </Form.Item>
 
           <Form.Item
@@ -155,7 +155,7 @@ const responseGoogle = async (authResult) => {
             name="dob"
             rules={[{ required: true, message: "Please input your date of birth!" }]}
           >
-            <DatePicker className="form-input w-full" format="YYYY-MM-DD" />
+            <DatePicker className="form-input w-full !w-[249px] !float-right" format="YYYY-MM-DD" />
           </Form.Item>
 
           <Form.Item
@@ -163,7 +163,7 @@ const responseGoogle = async (authResult) => {
             name="email"
             rules={[{ required: true, message: "Please input your email!" }]}
           >
-            <Input className="form-input" />
+            <Input className="form-input !w-[249px] !float-right" />
           </Form.Item>
 
           <Form.Item
@@ -171,7 +171,7 @@ const responseGoogle = async (authResult) => {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password className="form-input" />
+            <Input.Password className="form-input !w-[249px] !float-right" />
           </Form.Item>
 
           <Form.Item
@@ -191,7 +191,7 @@ const responseGoogle = async (authResult) => {
               }),
             ]}
           >
-            <Input.Password className="form-input" />
+            <Input.Password className="form-input !w-[249px] !float-right" />
           </Form.Item>
 
           <Form.Item name="remember" valuePropName="checked">
