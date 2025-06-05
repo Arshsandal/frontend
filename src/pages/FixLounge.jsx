@@ -128,30 +128,33 @@ const FixLounge = () => {
           <Form layout="vertical" onFinish={handleBooking}>
             <Row gutter={16}>
               <Col xs={24} sm={12}>
-                <Form.Item label="Your Name" name="name" rules={[{ required: true }]}>
+                <Form.Item label={<span className="text-black">Your Name</span>} name="name" rules={[{ required: true }]} >
                   <Input size="large" placeholder="John Doe" />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  label="Email"
+                  label={<span className="text-black">Email</span>}
                   name="email"
-                  rules={[{ required: true, type: 'email' }]}
+                  rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}
                 >
                   <Input size="large" placeholder="john@example.com" />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
                 <Form.Item
-                  label="Preferred Date"
+                  label={<span className="text-black">Preferred Date</span>}
                   name="date"
-                  rules={[{ required: true }]}
+                  rules={[{ required: true, message: "Please select a preferred date" }]}
                 >
                   <DatePicker size="large" style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
               <Col xs={24} sm={12}>
-                <Form.Item label="Special Requests" name="notes">
+                <Form.Item
+                  label={<span className="text-black">Special Requests</span>}
+                  name="notes"
+                >
                   <Input.TextArea rows={1} placeholder="Optional" />
                 </Form.Item>
               </Col>
