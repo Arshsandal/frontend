@@ -143,7 +143,7 @@ const RouteMap = () => {
 
   // Fetch bus stops for input suggestions
   useEffect(() => {
-    fetch("http://localhost:5000/api/auth/getBuses")
+    fetch("https://backend-5ofy.onrender.com/api/auth/getBuses")
       .then((res) => res.json())
       .then((data) => {
         setBusStops(data);

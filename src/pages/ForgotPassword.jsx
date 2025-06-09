@@ -32,7 +32,7 @@ const ForgotPassword = () => {
       setEmail(email);
       setLoading(true);
 
-      const response = await axios.post("http://localhost:5000/api/auth/forgotPassword", {
+      const response = await axios.post("https://backend-5ofy.onrender.com/api/auth/forgotPassword", {
         email,
       });
 
@@ -63,7 +63,7 @@ const ForgotPassword = () => {
   
       console.log("Verifying OTP for:", email, "with OTP:", otp); 
 
-      const response = await axios.post("http://localhost:5000/api/auth/verifyOtp", {
+      const response = await axios.post("https://backend-5ofy.onrender.com/api/auth/verifyOtp", {
         email,
         otp,
       });
