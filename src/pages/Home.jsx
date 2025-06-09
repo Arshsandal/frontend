@@ -2,18 +2,31 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify"; // ✅ Toast import
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
   const [stations, setStations] = useState([]);
   const [selectedFrom, setSelectedFrom] = useState("");
   const [selectedTo, setSelectedTo] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const response = await axios.get("https://backend-5ofy.onrender.com/api/auth/getBuses");
+        const token = localStorage.getItem("token"); // 🔐 Retrieve token
+        if (!token) {
+          toast.warning("Please login to search buses."); // 🔔 Warn user
+          return;
+        }
 
-        // Extract unique station names from the backend response
+        const response = await axios.get("http://localhost:5000/api/auth/getBuses", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
         const data = response.data || [];
         const uniqueStations = Array.from(
           new Set(data.map((item) => item.stationName))
@@ -25,6 +38,7 @@ const Home = () => {
         setStations(uniqueStations);
       } catch (error) {
         console.error("Failed to fetch station data:", error);
+        toast.error("Unable to fetch station data.");
       }
     };
 
@@ -33,13 +47,21 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("From:", selectedFrom, "To:", selectedTo);
-    // Add your logic to search or redirect based on selected stations
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login to search buses."); // 🔔 Prevent submission
+      return;
+    }
+
+    navigate("/tripTracker", {
+      state: { initialSearch: selectedFrom },
+    });
   };
 
   return (
     <>
       <Navbar />
+      <ToastContainer position="top-right" autoClose={3000} /> {/* ✅ Toast container */}
       <section className="hero">
         <div className="slideshow-container">
           <div className="slider">
@@ -65,6 +87,7 @@ const Home = () => {
                   <label htmlFor="from">From</label>
                   <select
                     id="stationFrom"
+                    className="w-[30%]"
                     value={selectedFrom}
                     onChange={(e) => setSelectedFrom(e.target.value)}
                     required
@@ -82,6 +105,7 @@ const Home = () => {
                   <label htmlFor="to">To</label>
                   <select
                     id="stationTo"
+                    className="w-[30%]"
                     value={selectedTo}
                     onChange={(e) => setSelectedTo(e.target.value)}
                     required

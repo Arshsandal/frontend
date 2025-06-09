@@ -96,6 +96,7 @@ const responseGoogle = async (authResult) => {
             localStorage.setItem("username", response.data.payload.username);
             localStorage.setItem("email", response.data.payload.email);
             localStorage.setItem("role", response.data.payload.role);
+            localStorage.setItem("token", response.data.token)
           }
           
           setTimeout(() => {
