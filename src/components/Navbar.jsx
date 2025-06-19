@@ -44,7 +44,7 @@ const Navbar = () => {
                 <span>Plan Your Journey</span>
                 <i className="fa-solid fa-chevron-down text-sm" />
               </button>
-              <div className="absolute left-0 mt-2 w-48 bg-[#191919] border border-gray-700 rounded shadow-lg hidden group-hover:block z-50">
+              <div className="absolute left-0 w-48 bg-[#191919] border border-gray-700 rounded shadow-lg hidden group-hover:block z-50">
                 <NavLink to="/routeMap" className="block px-4 py-2 hover:bg-gray-800">Route Map</NavLink>
                 <NavLink to="/schedulesAndStops" className="block px-4 py-2 hover:bg-gray-800">Schedules & Stops</NavLink>
                 <NavLink to="/discoverLondon" className="block px-4 py-2 hover:bg-gray-800">Discover London</NavLink>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <span>Services</span>
                 <i className="fa-solid fa-chevron-down text-sm" />
               </button>
-              <div className="absolute left-0 mt-2 w-52 bg-[#191919] border border-gray-700 rounded shadow-lg hidden group-hover:block z-50">
+              <div className="absolute left-0 w-52 bg-[#191919] border border-gray-700 rounded shadow-lg hidden group-hover:block z-50">
                 <NavLink to="/allServices" className="block px-4 py-2 hover:bg-gray-800">All Services</NavLink>
                 <NavLink to="/fixLounge" className="block px-4 py-2 hover:bg-gray-800">Fix Lounge</NavLink>
                 <NavLink to="/onBoard" className="block px-4 py-2 hover:bg-gray-800">On Board</NavLink>
