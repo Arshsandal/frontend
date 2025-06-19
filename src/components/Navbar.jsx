@@ -71,7 +71,7 @@ const Navbar = () => {
             {username ? (
               <div className="relative group">
                 <button className="hover:underline">Welcome, {username}</button>
-                <div className="absolute left-0 w-52 bg-[#191919] border border-gray-700 rounded shadow-lg hidden group-hover:block z-50">
+                <div className="absolute right-0 w-40 bg-white text-black border border-gray-300 rounded shadow-lg hidden group-hover:block z-50">
                   <NavLink to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</NavLink>
                   <button onClick={handleLogout} className="block w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
                 </div>
