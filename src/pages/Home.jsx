@@ -21,7 +21,7 @@ const Home = () => {
           return;
         }
 
-        const response = await axios.get("https://backend-5ofy.onrender.com/api/auth/getBuses", {
+        const response = await axios.get("http://localhost:5000/api/auth/getBuses", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

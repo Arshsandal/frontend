@@ -114,7 +114,7 @@ const TripDetail = () => {
         }
 
         const originRes = await axios.get(
-          `https://backend-5ofy.onrender.com/api/auth/getLatLon/${naptanId}`
+          `http://localhost:5000/api/auth/getLatLon/${naptanId}`
         );
         const origin = [originRes.data.lat, originRes.data.lon];
         setOriginCoords(origin);
